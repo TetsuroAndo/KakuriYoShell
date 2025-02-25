@@ -5,6 +5,7 @@ TMP_OUTPUT=$(mktemp)
 remove_comments() {
     local input_file="$1"
     local relative_path="${input_file#./}"
+    local file_ext="${input_file##*.}"
     
     # libftディレクトリはスキップ
     if [[ "$input_file" == *"/lib/libft/"* ]]; then
@@ -15,7 +16,13 @@ remove_comments() {
         echo "----------------------------------------"
         echo "File: $relative_path"
         echo "----------------------------------------"
-        sed '/\/\*.*\*\//d; /\/\*.*/,/.*\*\//d; s/\/\/.*//' "$input_file" | awk 'NF'
+        
+        if [[ "$relative_path" == *"Makefile"* ]]; then
+            sed 's/#.*$//' "$input_file" | awk 'NF'
+        else
+            sed '/\/\*.*\*\//d; /\/\*.*/,/.*\*\//d; s/\/\/.*//' "$input_file" | awk 'NF'
+        fi
+        
         echo "----------------------------------------"
         echo
     } >> "$TMP_OUTPUT"
