@@ -28,7 +28,10 @@ remove_comments() {
     } >> "$TMP_OUTPUT"
 }
 
-tree >> "$TMP_OUTPUT"
+{
+    tree -F | sed -e '/ft_[a-z].*\.[ch]/d' -e '/type_put/d' -e '/get_next_line/d'
+    echo
+} >> "$TMP_OUTPUT"
 find src tests Makefile -type f \( -name "*.c" -o -name "*.h" -o -name "Makefile" \) | while read -r file; do
     remove_comments "$file"
 done
