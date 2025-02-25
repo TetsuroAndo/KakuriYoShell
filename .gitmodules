@@ -1,9 +1,3 @@
-[submodule "src/lib/src/lib/libft"]
-	path = src/lib/src/lib/libft
-	url = git@github.com:TetsuroAndo/42-libft.git
 [submodule "src/lib/libft"]
 	path = src/lib/libft
-	url = git@github.com:TetsuroAndo/42-libft.git
-[submodule "src/01_lib/libft"]
-	path = src/01_lib/libft
 	url = git@github.com:TetsuroAndo/42-libft.git
