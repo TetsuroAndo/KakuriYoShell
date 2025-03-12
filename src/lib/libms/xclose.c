@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   xclose.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/21 20:43:46 by teando            #+#    #+#             */
-/*   Updated: 2025/02/25 13:17:09 by teando           ###   ########.fr       */
+/*   Created: 2025/02/25 14:15:46 by teando            #+#    #+#             */
+/*   Updated: 2025/02/25 14:17:49 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-
-void print_ascii_art(void);
-
-int main(int argc, char **argv, char **envp)
+int xclose(int *fd)
 {
-    t_info *info;
+    int ret;
 
-    (void)argc;
-    (void)argv;
-    if (init_signals())
-        return (ft_dprintf(2, "signal setup failure\n"), 1);
-    info = system_init(envp);
-    // alias_update(RCFILE, info);
-    print_ascii_art();
-    shell_loop(info);
-    system_exit(info, info->status);
+    if (!fd || *fd < 3)
+        return (0);
+    ret = close(*fd);
+    if (ret == -1)
+        perror("close");
+    *fd = -1;
+    return (ret);
 }

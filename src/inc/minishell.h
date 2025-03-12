@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: teando <teando@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/21 20:43:46 by teando            #+#    #+#             */
-/*   Updated: 2025/02/25 13:17:09 by teando           ###   ########.fr       */
+/*   Created: 2025/02/25 13:40:22 by teando            #+#    #+#             */
+/*   Updated: 2025/02/25 19:30:10 by teando           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#ifndef MINISHELL_H
+#define MINISHELL_H
 
-void print_ascii_art(void);
+#include "core.h"
+#include "ms_signal.h"
 
-int main(int argc, char **argv, char **envp)
+typedef struct s_shell
 {
-    t_info *info;
+    char *source_line;
+    t_list *token_list;
+    t_ast *ast;
+    t_list *env_map;
+    char *env_spc[128];
+    int stdin_backup;
+    int stdout_backup;
+    char cwd[PATH_MAX];
+    t_status status;
+} t_shell;
 
-    (void)argc;
-    (void)argv;
-    if (init_signals())
-        return (ft_dprintf(2, "signal setup failure\n"), 1);
-    info = system_init(envp);
-    // alias_update(RCFILE, info);
-    print_ascii_art();
-    shell_loop(info);
-    system_exit(info, info->status);
-}
+#endif

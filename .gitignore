@@ -3,8 +3,6 @@
 *.swp
 *.log
 *.db
-*Test*
-*TEST*
 logs/*
 *venv*
 out
@@ -73,4 +71,3 @@ Mkfile.old
 dkms.conf
 
 # End of https://www.toptal.com/developers/gitignore/api/c
-
